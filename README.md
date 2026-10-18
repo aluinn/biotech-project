@@ -1,6 +1,6 @@
 # Fold
 
-Search any protein by name and explore its AlphaFold-predicted 3D structure, coloured by how confident AlphaFold is.
+Search any protein by name and explore its 3D structure as predicted by **Google DeepMind's AlphaFold**, coloured by how confident AlphaFold is.
 
 **Live demo:** _coming soon (link to be added)_
 
@@ -50,5 +50,3 @@ Opening `index.html` by double-clicking may also work, but Live Server is more r
 - [UniProt](https://www.uniprot.org): protein names, functions and accession IDs
 - [AlphaFold Protein Structure Database](https://alphafold.ebi.ac.uk): predicted structures, by Google DeepMind and EMBL-EBI
 - [3Dmol.js](https://3dmol.org): in-browser 3D molecular viewer
-
-Built for the AgentVerse 2026 hackathon (Biotech track).
