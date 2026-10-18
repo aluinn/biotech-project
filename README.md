@@ -2,10 +2,9 @@
 
 Search any protein by name and explore its 3D structure as predicted by **Google DeepMind's AlphaFold**, coloured by how confident AlphaFold is.
 
-**Live demo:** _coming soon (link to be added)_
+**Live demo:** https://biotech-project-six.vercel.app
 
-![Demo GIF](demo.gif)
-<!-- Replace demo.gif with a screen recording of the app (e.g. searching "insulin"). -->
+https://github.com/user-attachments/assets/b71fb34d-34e9-43d4-a540-8ec37160ea19
 
 ## What it does
 
