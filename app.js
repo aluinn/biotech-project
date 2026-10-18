@@ -143,7 +143,7 @@ function inspectResidue(atom, event) {
   clearTimeout(resumeTimer);
   viewer.spin(false);                       // hold still so the residue doesn't slide away
   applyBaseStyle();
-  viewer.addStyle({ chain: atom.chain, resi: atom.resi }, { stick: { color: "white", radius: 0.25 } });
+  viewer.addStyle({ chain: atom.chain, resi: atom.resi }, { stick: { color: "#1c1f1d", radius: 0.25 } });
   viewer.render();
 
   const color = "#" + confidenceColor(atom.b).toString(16).padStart(6, "0");
@@ -187,7 +187,7 @@ async function loadStructure(accession) {
   alphafoldLink.href = "https://alphafold.ebi.ac.uk/entry/" + accession;
 
   if (!viewer) {
-    viewer = $3Dmol.createViewer("viewer", { backgroundColor: "#04070f" });
+    viewer = $3Dmol.createViewer("viewer", { backgroundColor: "#fbfaf7" });
   }
   viewer.clear();
   viewer.render();
