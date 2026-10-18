@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fold – Explore AlphaFold protein structures</title>
+  <meta name="description" content="Type a protein name and see its AlphaFold-predicted 3D structure, coloured by confidence." />
+
+  <!-- One font from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="page">
+
+    <!-- Header: tells visitors what this is within 3 seconds -->
+    <header class="hero">
+      <h1>Fold</h1>
+      <p class="tagline">Search any protein and explore its AlphaFold-predicted 3D structure.</p>
+    </header>
+
+    <!-- Search box -->
+    <form id="search-form" class="search" autocomplete="off">
+      <input id="search-input" type="search" placeholder="Try &quot;insulin&quot;…" aria-label="Protein name" />
+      <button type="submit" id="search-button">Search</button>
+    </form>
+
+    <!-- Quick picks: one click to a famous protein -->
+    <div class="quick-picks" aria-label="Example proteins">
+      <button type="button" class="quick-pick" data-name="Insulin" data-accession="P01308">
+        <strong>Insulin</strong><span>The hormone that regulates blood sugar</span>
+      </button>
+      <button type="button" class="quick-pick" data-name="Haemoglobin subunit alpha" data-accession="P69905">
+        <strong>Haemoglobin alpha</strong><span>Carries oxygen in your blood</span>
+      </button>
+      <button type="button" class="quick-pick" data-name="Green fluorescent protein" data-accession="P42212">
+        <strong>GFP</strong><span>The jellyfish protein that made cells glow, Nobel Prize 2008</span>
+      </button>
+      <button type="button" class="quick-pick" data-name="p53" data-accession="P04637">
+        <strong>p53</strong><span>The "guardian of the genome", mutated in many cancers</span>
+      </button>
+      <button type="button" class="quick-pick" data-name="Spike glycoprotein (SARS-CoV-2)" data-accession="P0DTC2">
+        <strong>Spike (SARS-CoV-2)</strong><span>How the coronavirus enters cells</span>
+      </button>
+    </div>
+
+    <!-- Messages: loading and errors appear here -->
+    <div id="status" class="status" role="status" aria-live="polite" hidden></div>
+
+    <!-- Other matches (up to 5) appear here as clickable buttons -->
+    <div id="matches" class="matches" hidden></div>
+
+    <!-- Results: info card on the left, 3D viewer on the right (stacked on phones) -->
+    <div id="result" class="layout" hidden>
+
+      <section class="card">
+        <h2 id="protein-name"></h2>
+        <dl class="facts">
+          <div><dt>Gene</dt><dd id="protein-gene"></dd></div>
+          <div><dt>Organism</dt><dd id="protein-organism"></dd></div>
+          <div><dt>UniProt ID</dt><dd id="protein-accession"></dd></div>
+          <div><dt>Length</dt><dd id="protein-length"></dd></div>
+        </dl>
+        <h3>What it does</h3>
+        <p id="protein-function"></p>
+      </section>
+
+      <section class="card viewer-card">
+        <div class="viewer-wrap">
+          <!-- 3Dmol draws the protein inside this box -->
+          <div id="viewer"></div>
+          <p id="viewer-message" class="viewer-message" hidden></p>
+          <div id="viewer-tooltip" class="tooltip" hidden></div>
+        </div>
+        <div class="viewer-controls">
+          <button type="button" id="rotate-button">Pause rotation</button>
+          <button type="button" id="reset-button">Reset view</button>
+          <a id="alphafold-link" href="#" target="_blank" rel="noopener">View on AlphaFold DB ↗</a>
+        </div>
+        <!-- Confidence legend, average score and plain-English note (filled in by app.js) -->
+        <div class="confidence">
+          <p id="avg-confidence" class="avg" hidden></p>
+          <ul class="legend">
+            <li><span class="swatch" style="background:#0053d6"></span>Very high (&gt; 90)</li>
+            <li><span class="swatch" style="background:#65cbf3"></span>Confident (70–90)</li>
+            <li><span class="swatch" style="background:#ffdb13"></span>Low (50–70)</li>
+            <li><span class="swatch" style="background:#ff7d45"></span>Very low (&lt; 50)</li>
+          </ul>
+          <p class="note">
+            <strong>Colour = AlphaFold's confidence</strong> in each part (called pLDDT, scored 0–100).
+            Low confidence often just means that part is flexible or disordered, so it has no single fixed shape.
+            It doesn't necessarily mean a mistake. Hover over the structure to see individual residues.
+          </p>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- About -->
+    <section class="about">
+      <h2>About</h2>
+      <p>
+        AlphaFold is an AI system built by Google DeepMind that predicts a protein's 3D shape from its
+        sequence of amino acids. It was unveiled in 2020 and solved a puzzle biologists had worked on
+        for 50 years. Its creators, Demis Hassabis and John Jumper, shared the 2024 Nobel Prize in Chemistry.
+        <strong>These are predictions, not experimentally determined structures</strong>, so treat them as
+        a very good guide rather than the final word.
+      </p>
+    </section>
+
+  </main>
+
+  <!-- 3Dmol.js: the library that draws the 3D protein -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.5.5/3Dmol-min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

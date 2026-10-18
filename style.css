@@ -1,0 +1,266 @@
+/* ---------- Colours and basics ---------- */
+:root {
+  --bg: #070b16;           /* deep navy / near-black page background */
+  --panel: #0f1628;        /* cards */
+  --panel-border: #1d2742;
+  --text: #e6ebf5;
+  --muted: #8d99b5;
+  --accent: #6fb1ff;       /* soft blue, close to AlphaFold's light blue */
+  --accent-dark: #0053d6;  /* AlphaFold "very high" blue */
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 20px 64px;
+}
+
+[hidden] { display: none !important; }
+
+/* ---------- Header ---------- */
+.hero { text-align: center; margin-bottom: 28px; }
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2.6rem, 8vw, 4rem);
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, var(--accent), #ffffff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.tagline { margin: 8px 0 0; color: var(--muted); font-size: 1.1rem; }
+
+/* ---------- Search ---------- */
+.search {
+  display: flex;
+  gap: 10px;
+  max-width: 640px;
+  margin: 0 auto 20px;
+}
+.search input {
+  flex: 1;
+  min-width: 0;
+  padding: 16px 18px;
+  font: inherit;
+  font-size: 1.1rem;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.search input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(111, 177, 255, 0.2);
+}
+.search button {
+  padding: 0 26px;
+  font: inherit;
+  font-weight: 600;
+  color: #04122b;
+  background: var(--accent);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.search button:hover { opacity: 0.85; }
+.search button:disabled { opacity: 0.5; cursor: wait; }
+
+/* ---------- Quick picks ---------- */
+.quick-picks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.quick-pick {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  font: inherit;
+  text-align: left;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.quick-pick:hover { border-color: var(--accent); transform: translateY(-2px); }
+.quick-pick strong { color: var(--accent); }
+.quick-pick span { font-size: 0.82rem; color: var(--muted); line-height: 1.4; }
+
+/* ---------- About ---------- */
+.about {
+  max-width: 720px;
+  margin: 56px auto 0;
+  padding-top: 28px;
+  border-top: 1px solid var(--panel-border);
+  color: var(--muted);
+}
+.about h2 { margin: 0 0 8px; font-size: 1.1rem; color: var(--text); }
+.about p { margin: 0; }
+.about strong { color: var(--text); font-weight: 500; }
+
+/* ---------- Status messages ---------- */
+.status {
+  max-width: 640px;
+  margin: 0 auto 20px;
+  padding: 14px 18px;
+  text-align: center;
+  color: var(--muted);
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+}
+.status.error { color: #ffb4a8; border-color: #5a2a24; }
+
+/* ---------- Other matches ---------- */
+.matches {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.matches button {
+  padding: 8px 14px;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.matches button:hover { border-color: var(--accent); }
+.matches button.active { border-color: var(--accent); color: var(--accent); }
+
+/* ---------- Results card ---------- */
+.card {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 16px;
+  padding: 24px;
+}
+.card h2 { margin: 0 0 16px; font-size: 1.6rem; }
+.card h3 {
+  margin: 20px 0 6px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.card p { margin: 0; }
+.card a { color: var(--accent); }
+
+/* ---------- Info card + viewer side by side ---------- */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;      /* phones: stacked */
+  gap: 20px;
+  align-items: start;
+}
+@media (min-width: 900px) {
+  .layout { grid-template-columns: 380px 1fr; }  /* desktop: card beside viewer */
+}
+
+.viewer-card { padding: 12px; }
+.viewer-wrap {
+  position: relative;              /* 3Dmol needs this to size itself */
+  height: 60vh;
+  min-height: 340px;
+  max-height: 640px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #04070f;
+}
+#viewer { position: absolute; inset: 0; }
+.viewer-message {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+  color: var(--muted);
+}
+.tooltip {
+  position: absolute;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  background: rgba(15, 22, 40, 0.95);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  pointer-events: none;   /* so the tooltip never blocks the mouse */
+}
+.tooltip span { display: flex; align-items: center; gap: 6px; color: var(--muted); }
+.tooltip i { width: 10px; height: 10px; border-radius: 3px; }
+
+.viewer-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+.viewer-controls button {
+  padding: 8px 14px;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+.viewer-controls button:hover { border-color: var(--accent); }
+.viewer-controls a { margin-left: auto; font-size: 0.9rem; color: var(--accent); }
+
+/* ---------- Confidence legend ---------- */
+.confidence { padding: 14px 6px 6px; }
+.avg { margin: 0 0 10px; font-weight: 600; }
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+  font-size: 0.9rem;
+}
+.legend li { display: flex; align-items: center; gap: 8px; }
+.swatch { width: 14px; height: 14px; border-radius: 4px; }
+.note { margin: 0; font-size: 0.85rem; color: var(--muted); }
+.note strong { color: var(--text); font-weight: 500; }
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 14px;
+  margin: 0;
+}
+.facts dt { font-size: 0.8rem; color: var(--muted); }
+.facts dd { margin: 0; font-weight: 500; overflow-wrap: anywhere; }
