@@ -128,7 +128,20 @@ No. It is an educational viewer.
 
 ## Good first issues
 
-Issue drafts with scope, acceptance criteria and pointers to the code will be listed here, see [docs/issues](docs/issues).
+Each draft in [docs/issues](docs/issues) has context, a task, acceptance criteria and pointers to the code. Copy one into a new GitHub issue to claim it.
+
+| Issue | Label |
+|---|---|
+| [Add a Subresource Integrity hash to the 3Dmol.js script tag](docs/issues/01-add-sri-to-3dmol-script.md) | good first issue |
+| [Build the residue tooltip with DOM nodes instead of `innerHTML`](docs/issues/02-replace-innerhtml-in-tooltip.md) | good first issue |
+| [Show a clear message if 3Dmol.js fails to load](docs/issues/03-show-message-when-3dmol-fails-to-load.md) | good first issue |
+| [Expose the selected match to screen readers with `aria-pressed`](docs/issues/04-mark-selected-match-for-screen-readers.md) | good first issue |
+| [Add a "Download PDB" link](docs/issues/05-add-download-pdb-button.md) | good first issue |
+| [Run the two UniProt searches in parallel](docs/issues/06-run-uniprot-queries-in-parallel.md) | enhancement |
+| [Support shareable links (`?q=`, `?acc=`)](docs/issues/07-shareable-links.md) | enhancement |
+| [Cache protein data and structures for the session](docs/issues/08-cache-api-results-per-session.md) | enhancement |
+| [Show AlphaFold's predicted aligned error (PAE) image](docs/issues/09-show-predicted-aligned-error.md) | enhancement |
+| [Add an organism filter to search](docs/issues/10-organism-filter.md) | enhancement |
 
 ## Roadmap
 
