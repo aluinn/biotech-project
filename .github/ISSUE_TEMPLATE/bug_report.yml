@@ -1,0 +1,40 @@
+name: Bug report
+description: Something in Fold doesn't work as expected
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for the report. A few details will let me reproduce it quickly.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: input
+    id: search
+    attributes:
+      label: What did you search for or click?
+      description: The search text, or which example protein.
+      placeholder: insulin
+    validations:
+      required: true
+  - type: textarea
+    id: console
+    attributes:
+      label: Console errors
+      description: Open the browser dev tools (F12), look at the Console tab, and paste any red errors. Optional.
+      render: shell
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and device
+      placeholder: Safari 18 on iPhone 15, Chrome 130 on Windows 11
+    validations:
+      required: true
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: Screenshot
+      description: Drag an image here if it helps. Optional.

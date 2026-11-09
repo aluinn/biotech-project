@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability
+    url: https://github.com/aluinn/biotech-project/security/advisories/new
+    about: Please report security problems privately, not in a public issue.
+  - name: Wrong or surprising protein data?
+    url: https://alphafold.ebi.ac.uk
+    about: Structures and confidence scores come from AlphaFold DB. Problems with the predictions themselves are best reported there.

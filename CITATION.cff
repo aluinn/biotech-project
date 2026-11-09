@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use Fold in your work, please cite it as below. Please also cite UniProt, AlphaFold and 3Dmol.js."
+title: "Fold: explore AlphaFold protein structures"
+type: software
+abstract: >-
+  Fold is a static web app that searches UniProt for a protein and displays its
+  AlphaFold-predicted 3D structure, coloured by per-residue confidence (pLDDT).
+authors:
+  - family-names: McDonald
+    given-names: Aluinn
+version: 0.1.0
+date-released: "2026-11-09"
+license: MIT
+repository-code: "https://github.com/aluinn/biotech-project"
+url: "https://biotech-project-six.vercel.app"
+keywords:
+  - AlphaFold
+  - protein structure
+  - UniProt
+  - 3Dmol.js
+  - visualization
