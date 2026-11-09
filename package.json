@@ -15,10 +15,24 @@
   },
   "scripts": {
     "start": "node scripts/serve.mjs",
+    "check": "node --check app.js && node --check helpers.js && node --check scripts/serve.mjs && node --check scripts/capture-screenshots.mjs && node --check scripts/benchmark.mjs",
+    "test": "node --test test/helpers.test.js",
+    "test:e2e": "playwright test",
     "screenshots": "node scripts/capture-screenshots.mjs",
     "benchmark": "node scripts/benchmark.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.65.0"
+  },
+  "keywords": [
+    "alphafold",
+    "protein-structure",
+    "uniprot",
+    "3dmol",
+    "bioinformatics",
+    "visualization"
+  ],
+  "bugs": {
+    "url": "https://github.com/aluinn/biotech-project/issues"
   }
 }
