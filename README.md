@@ -1,24 +1,75 @@
+<div align="center">
+
 # Fold
 
-Search any protein by name and explore its 3D structure as predicted by **Google DeepMind's AlphaFold**, coloured by how confident AlphaFold is.
+**Search any protein and explore its AlphaFold-predicted 3D structure, coloured by how confident the model is.**
 
-**Live demo:** _coming soon (link to be added)_
+[![CI](https://github.com/aluinn/biotech-project/actions/workflows/ci.yml/badge.svg)](https://github.com/aluinn/biotech-project/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/aluinn/biotech-project/actions/workflows/codeql.yml/badge.svg)](https://github.com/aluinn/biotech-project/actions/workflows/codeql.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-1f6f54.svg)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/aluinn/biotech-project?style=flat&color=1f6f54)](https://github.com/aluinn/biotech-project/stargazers)
 
-![Demo GIF](demo.gif)
-<!-- Replace demo.gif with a screen recording of the app (e.g. searching "insulin"). -->
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Faluinn%2Fbiotech-project)
 
-## What it does
+<!--
+  HERO PLACEHOLDER: replace the screenshot below with a short screen recording
+  (e.g. searching "insulin", then hovering a residue). Save it as docs/assets/<new-name>.gif
+  or .mp4 and point the <img> at it. This is a real screenshot until then.
+-->
+<img src="docs/assets/fold-search-matches-desktop.png" alt="Fold showing the AlphaFold-predicted structure of human haemoglobin beta, coloured by confidence" width="900" />
 
-Type a protein name (for example "insulin"). Fold finds the protein, shows a plain-English summary of what it does, and displays its predicted 3D structure in a viewer you can rotate and zoom. The structure is coloured by AlphaFold's confidence in each part, and hovering (or tapping on a phone) shows the details for a single residue. Five quick-pick buttons let you jump straight to famous proteins such as insulin, haemoglobin, GFP, p53 and the SARS-CoV-2 spike.
+[**Live demo**](https://biotech-project-six.vercel.app) · [Architecture](docs/ARCHITECTURE.md) · [Roadmap](ROADMAP.md) · [Contributing](CONTRIBUTING.md)
+
+</div>
+
+---
+
+## Features
+
+- **Search by protein or gene name.** Fold queries UniProt's reviewed (Swiss-Prot) entries and prefers human proteins, so "p53" finds TP53.
+- **Up to five matches per search**, shown as buttons so you can switch between close results (e.g. the haemoglobin subunits).
+- **Interactive 3D structure** rendered as a slowly rotating cartoon. Drag to rotate, scroll to zoom, pause the rotation or reset the view.
+- **Colour by AlphaFold's confidence (pLDDT)** using AlphaFold's standard four-colour scheme, plus the average confidence across the whole protein.
+- **Residue inspector.** Hover (mouse) or tap (touch screens) a residue to see its amino acid, position and confidence score.
+- **Plain-English summary** of what the protein does, taken from UniProt with citation clutter stripped out.
+- **Five one-click examples:** insulin, haemoglobin alpha, GFP, p53 and the SARS-CoV-2 spike.
+- **Works on phones.** The layout stacks on narrow screens.
+- **No backend, no build step, no API key.** It is three static files that talk directly to public APIs.
+
+## Screenshots
+
+| | |
+|---|---|
+| ![Home page with search box and five example proteins](docs/assets/fold-home-desktop.png) | ![Insulin structure, mostly low-confidence orange and yellow](docs/assets/fold-insulin-desktop.png) |
+| **Home.** Search box and one-click examples. | **Insulin (P01308).** Mostly low-confidence regions. |
+| ![Hovering a residue shows its name, position and confidence](docs/assets/fold-hover-desktop.png) | ![p53 with a confident folded core and long disordered tails](docs/assets/fold-p53-desktop.png) |
+| **Residue inspector.** Hover to see one amino acid. | **p53 (P04637).** Confident core, flexible tails. |
+
+<details>
+<summary>More screenshots</summary>
+
+| | |
+|---|---|
+| ![Search results for haemoglobin with five match buttons](docs/assets/fold-search-matches-desktop.png) | <img src="docs/assets/fold-insulin-phone.png" alt="Insulin on a 390 px wide phone screen" width="260" /> |
+| **Several matches.** Searching "hemoglobin" returns five subunits. | **Phone (390 × 844).** The viewer and legend stack vertically. |
+
+</details>
 
 ## How it works
 
-Everything runs in the browser. There is no backend, no build step and no API key.
+```mermaid
+flowchart LR
+    A[You type a protein name] --> B[UniProt REST API]
+    B -->|accession, name, function| C[Info card]
+    B -->|accession| D[AlphaFold DB API]
+    D -->|PDB file| E[3Dmol.js viewer]
+    E --> F[Coloured by pLDDT]
+```
 
-1. **Finding the protein:** the app searches the [UniProt REST API](https://rest.uniprot.org) for reviewed (Swiss-Prot) entries, preferring human proteins. It reads the name, gene, organism, sequence length, function text and accession ID.
-2. **Getting the structure:** with the accession ID, it asks the [AlphaFold Protein Structure Database API](https://alphafold.ebi.ac.uk/api-docs) for the predicted structure file (PDB format).
-3. **Drawing it:** [3Dmol.js](https://3dmol.org) renders the structure as a slowly rotating cartoon.
-4. **Confidence colouring:** AlphaFold stores its per-residue confidence score (pLDDT, 0–100) in the "B-factor" column of the structure file. Fold colours each residue with AlphaFold's standard scheme:
+1. **Find the protein.** The app searches the [UniProt REST API](https://rest.uniprot.org) for reviewed entries, human first. It reads the name, gene, organism, sequence length, function text and accession ID.
+2. **Get the structure.** With the accession, it asks the [AlphaFold Protein Structure Database API](https://alphafold.ebi.ac.uk/api-docs) for the prediction and downloads the PDB file it points to.
+3. **Draw it.** [3Dmol.js](https://3dmol.org) renders the structure as a cartoon.
+4. **Colour by confidence.** AlphaFold stores its per-residue confidence (pLDDT, 0–100) in the PDB "B-factor" column. Fold colours each residue with AlphaFold's standard scheme:
 
    | pLDDT | Meaning | Colour |
    |---|---|---|
@@ -27,26 +78,76 @@ Everything runs in the browser. There is no backend, no build step and no API ke
    | 50–70 | Low | Yellow |
    | < 50 | Very low | Orange |
 
-   Low confidence often means a flexible or disordered region, not necessarily a mistake. The average shown is the mean score across all residues.
+   Low confidence often means a flexible or disordered region, not necessarily a mistake. The average shown is the mean across one backbone atom per residue.
 
-AlphaFold structures are **predictions**, not experimentally determined structures.
+See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the full data flow, failure modes and design decisions.
 
-## Run it locally
+## Quick start
 
-1. Download or clone this repository.
-2. Open the folder in VS Code and install the **Live Server** extension.
-3. Right-click `index.html` and choose **Open with Live Server**.
+Requires [Node.js](https://nodejs.org) 20 or newer for the helper scripts. The app itself needs nothing but a static file server and an internet connection.
 
-Opening `index.html` by double-clicking may also work, but Live Server is more reliable.
+```bash
+git clone https://github.com/aluinn/biotech-project.git
+cd biotech-project
+npm install      # only needed for screenshots and tests
+npm start        # http://localhost:8000
+```
 
-## Files
+Any static server works too, for example `python3 -m http.server`.
 
-- `index.html`: page structure
-- `style.css`: dark theme and responsive layout
-- `app.js`: search, data fetching, 3D viewer and confidence colouring
+| Command | What it does |
+|---|---|
+| `npm start` | Serves the app at `http://localhost:8000` (pass a different port with `node scripts/serve.mjs 3000`) |
+| `npm run screenshots` | Regenerates the README screenshots with your installed Google Chrome (needs network) |
+
+## Deploy
+
+Fold is plain static files, so it deploys anywhere that serves a folder. The live demo is hosted on Vercel.
+
+- **Vercel:** click the deploy button above, or import the repository and leave the build command and output directory empty.
+- **Anywhere else** (GitHub Pages, Netlify, Cloudflare Pages, S3): publish the repository root.
+
+## FAQ
+
+**Are these structures real?**
+They are predictions from AlphaFold, not experimentally determined structures. Treat them as a very good guide, not the final word. Check the confidence colours before trusting any region.
+
+**Why is part of my protein orange?**
+Orange means pLDDT below 50. That usually marks a flexible or disordered stretch with no single fixed shape (see the long tails on p53), not necessarily an error.
+
+**Why does a search say "AlphaFold has no predicted structure"?**
+UniProt knows the protein but AlphaFold DB returned a 404 for that accession. Try another match from the list or one of the examples.
+
+**Why "haemoglobin" and "hemoglobin" both work?**
+UniProt uses the American spelling, so Fold rewrites "haemo" to "hemo" before searching. It is the only spelling rewrite in the code.
+
+**What are the limitations?**
+- Only reviewed (Swiss-Prot) entries are searched, and at most five matches are shown.
+- Fold draws the first model AlphaFold DB returns for an accession. It does not show alternative models, mutations, ligands or protein complexes.
+- It depends on three third-party services (UniProt, AlphaFold DB, and the cdnjs-hosted 3Dmol.js) plus Google Fonts. If one is down, that part of the app fails with an error message.
+- There is no offline mode and no result caching.
+
+**Is it for clinical or research use?**
+No. It is an educational viewer.
+
+## Good first issues
+
+Issue drafts with scope, acceptance criteria and pointers to the code will be listed here, see [docs/issues](docs/issues).
+
+## Roadmap
+
+See [ROADMAP.md](ROADMAP.md).
 
 ## Credits
 
+Built by [Aluinn McDonald](https://github.com/aluinn).
+
 - [UniProt](https://www.uniprot.org): protein names, functions and accession IDs
-- [AlphaFold Protein Structure Database](https://alphafold.ebi.ac.uk): predicted structures, by Google DeepMind and EMBL-EBI
+- [AlphaFold Protein Structure Database](https://alphafold.ebi.ac.uk): predicted structures. AlphaFold is by [Google DeepMind](https://deepmind.google), and the database is a collaboration with [EMBL-EBI](https://www.ebi.ac.uk)
 - [3Dmol.js](https://3dmol.org): in-browser 3D molecular viewer
+- [Fraunces](https://fonts.google.com/specimen/Fraunces) and [DM Sans](https://fonts.google.com/specimen/DM+Sans) via Google Fonts
+- [Playwright](https://playwright.dev): screenshots
+
+## Licence
+
+[MIT](LICENSE) © Aluinn McDonald
