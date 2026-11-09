@@ -13,7 +13,10 @@
   "engines": {
     "node": ">=20"
   },
-  "scripts": {},
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "screenshots": "node scripts/capture-screenshots.mjs"
+  },
   "devDependencies": {
     "@playwright/test": "^1.65.0"
   }

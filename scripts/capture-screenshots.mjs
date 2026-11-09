@@ -1,23 +1,9 @@
 // Captures README screenshots from the running app using the installed Chrome.
 // Usage: node scripts/capture-screenshots.mjs   (needs network: UniProt + AlphaFold)
 import { chromium } from "@playwright/test";
-import http from "node:http";
-import { readFile } from "node:fs/promises";
-import { extname, join, normalize } from "node:path";
+import { startServer } from "./serve.mjs";
 
-const root = process.cwd();
-const types = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css" };
-const server = http.createServer(async (req, res) => {
-  const path = req.url.split("?")[0];
-  const file = normalize(join(root, path === "/" ? "index.html" : path));
-  if (!file.startsWith(root)) { res.writeHead(403).end(); return; }
-  try {
-    const body = await readFile(file);
-    res.writeHead(200, { "content-type": types[extname(file)] || "application/octet-stream" });
-    res.end(body);
-  } catch { res.writeHead(404).end(); }
-});
-await new Promise((r) => server.listen(0, r));
+const server = await startServer();
 const base = `http://localhost:${server.address().port}/`;
 
 const browser = await chromium.launch({ channel: "chrome" });
