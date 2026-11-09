@@ -57,7 +57,11 @@ Example buttons skip the search: they carry a UniProt accession in `data-accessi
 .
 ├── index.html              Page structure, example buttons, confidence legend
 ├── style.css               Theme (CSS variables) and responsive layout
-├── app.js                  Search, data fetching, viewer, colouring, tooltips
+├── helpers.js              Pure functions (name parsing, pLDDT colours/labels), loaded before app.js
+├── app.js                  Search, data fetching, viewer, tooltips, DOM wiring
+├── test/                   Unit tests for helpers.js (node:test)
+├── e2e/                    Playwright smoke tests with mocked APIs
+├── playwright.config.mjs   Starts scripts/serve.mjs on port 4381 for the e2e tests
 ├── scripts/
 │   ├── serve.mjs           Zero-dependency static server (npm start)
 │   ├── capture-screenshots.mjs   Generates docs/assets/*.png with Chrome
@@ -69,8 +73,14 @@ Example buttons skip the search: they carry a UniProt accession in `data-accessi
 │   ├── CONFIDENCE.md       What pLDDT means and how Fold shows it
 │   ├── assets/             Screenshots and other media
 │   └── issues/             Drafted issues
-└── .github/                CI, issue and PR templates, Dependabot
+└── .github/                Workflows (CI, CodeQL), issue and PR templates, Dependabot
 ```
+
+## Testing
+
+- **Unit tests** (`npm test`) cover `helpers.js`: they need no browser and no network. `helpers.js` ends with a `module.exports` guard so the same file works as a browser script and as a Node module.
+- **Smoke tests** (`npm run test:e2e`) drive a real browser against the real `index.html`, `app.js` and 3Dmol.js. UniProt and AlphaFold DB responses are mocked with a six-residue fixture, which keeps CI fast and independent of the remote services. They cover the example buttons, typed search, no results, and the no-model (404) case. They do not test the live APIs, so an upstream format change would not be caught by CI.
+- **CI** (`.github/workflows/ci.yml`) runs the syntax check and unit tests on Node 20 and 22, and the smoke tests with Playwright's Chromium. CodeQL runs separately.
 
 ## Failure modes
 

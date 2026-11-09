@@ -6,8 +6,9 @@ not a promise. Items marked **good first issue** have a draft in
 
 ## Now: quality and trust
 
-- [ ] Unit tests for the pure logic (name parsing, function-text cleanup, confidence buckets)
-- [ ] End-to-end smoke test and CI on every pull request
+- [x] Unit tests for the pure logic (name parsing, function-text cleanup, confidence buckets)
+- [x] End-to-end smoke test and CI on every pull request
+- [ ] A scheduled check against the live UniProt and AlphaFold APIs, to catch upstream format changes
 - [ ] Subresource Integrity (SRI) hash on the 3Dmol.js script tag
 - [ ] Replace `innerHTML` in the residue tooltip with DOM nodes
 

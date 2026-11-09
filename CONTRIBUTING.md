@@ -30,6 +30,9 @@ There is no build step. Edit `index.html`, `style.css` or `app.js` and refresh t
 | Command | What it does |
 |---|---|
 | `npm start` | Serve the app at `http://localhost:8000` |
+| `npm run check` | Syntax-check every JavaScript file |
+| `npm test` | Unit tests for the pure helpers in `helpers.js` |
+| `npm run test:e2e` | Browser smoke tests (UniProt and AlphaFold are mocked; uses your installed Chrome) |
 | `npm run screenshots` | Regenerate the screenshots in `docs/assets/` (needs network and Chrome) |
 | `npm run benchmark` | Measure fetch and render times, see `docs/PERFORMANCE.md` |
 
@@ -39,7 +42,9 @@ There is no build step. Edit `index.html`, `style.css` or `app.js` and refresh t
 |---|---|
 | `index.html` | Page structure |
 | `style.css` | Theme and responsive layout |
-| `app.js` | Search, data fetching, 3D viewer, confidence colouring |
+| `helpers.js` | Pure functions (name parsing, confidence colours), unit tested |
+| `app.js` | Search, data fetching, 3D viewer, DOM wiring |
+| `test/`, `e2e/` | Unit tests and browser smoke tests |
 | `scripts/` | Dev server and screenshot script |
 | `docs/` | Architecture notes, screenshots and issue drafts |
 
@@ -64,9 +69,10 @@ Common types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `ci`.
 2. Fill in the pull request template, and link the issue it closes.
 3. Match the existing style: plain JavaScript, no framework, no build tooling, comments that explain *why*. Don't reformat code you aren't changing.
 4. Don't add a runtime dependency without discussing it in an issue first. Fold deliberately has none.
-5. Add a screenshot or short recording for any visible change, and check it on a phone-width window.
-6. Update the README, docs and `CHANGELOG.md` (under `Unreleased`) when behaviour changes.
-7. Don't commit secrets, generated files you can recreate, or large media.
+5. Make sure `npm run check`, `npm test` and `npm run test:e2e` pass. CI runs them on every pull request. Add a test for any logic you change.
+6. Add a screenshot or short recording for any visible change, and check it on a phone-width window.
+7. Update the README, docs and `CHANGELOG.md` (under `Unreleased`) when behaviour changes.
+8. Don't commit secrets, generated files you can recreate, or large media.
 
 A maintainer will review as soon as they can. Expect some back-and-forth. It is about the code, not you.
 

@@ -29,7 +29,7 @@ https://github.com/user-attachments/assets/b71fb34d-34e9-43d4-a540-8ec37160ea19
 - **Plain-English summary** of what the protein does, taken from UniProt with citation clutter stripped out.
 - **Five one-click examples:** insulin, haemoglobin alpha, GFP, p53 and the SARS-CoV-2 spike.
 - **Works on phones.** The layout stacks on narrow screens.
-- **No backend, no build step, no API key.** It is three static files that talk directly to public APIs.
+- **No backend, no build step, no API key.** It is a few static files that talk directly to public APIs.
 
 ## Screenshots
 
@@ -93,6 +93,9 @@ Any static server works too, for example `python3 -m http.server`.
 | Command | What it does |
 |---|---|
 | `npm start` | Serves the app at `http://localhost:8000` (pass a different port with `node scripts/serve.mjs 3000`) |
+| `npm test` | Runs the unit tests (Node's built-in test runner, no network) |
+| `npm run check` | Syntax-checks every JavaScript file |
+| `npm run test:e2e` | Runs the browser smoke tests with Playwright (APIs are mocked) |
 | `npm run screenshots` | Regenerates the README screenshots with your installed Google Chrome (needs network) |
 | `npm run benchmark` | Measures fetch and render times (see [docs/PERFORMANCE.md](docs/PERFORMANCE.md)) |
 

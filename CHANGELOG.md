@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Unit tests (`npm test`), Playwright smoke tests (`npm run test:e2e`) and a syntax check (`npm run check`).
+- GitHub Actions workflows for CI and CodeQL.
+- Architecture, data sources, confidence and performance docs, and ten issue drafts.
 - Real screenshots in `docs/assets/` and `npm run screenshots` to regenerate them.
 - Zero-dependency local dev server (`npm start`).
 - `package.json` with project metadata and Playwright as a dev dependency.
@@ -17,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Moved the pure helper functions out of `app.js` into `helpers.js` so they can be unit tested. Behaviour is unchanged.
 - README rewritten with features, screenshots, FAQ and quick start.
 
 ## [0.1.0] - 2026-10-18
