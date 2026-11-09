@@ -1,0 +1,20 @@
+{
+  "name": "fold",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Search any protein and explore its AlphaFold-predicted 3D structure, coloured by confidence.",
+  "license": "MIT",
+  "author": "Aluinn McDonald",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aluinn/biotech-project.git"
+  },
+  "homepage": "https://biotech-project-six.vercel.app",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {},
+  "devDependencies": {
+    "@playwright/test": "^1.65.0"
+  }
+}
