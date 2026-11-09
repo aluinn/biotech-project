@@ -15,7 +15,8 @@
   },
   "scripts": {
     "start": "node scripts/serve.mjs",
-    "screenshots": "node scripts/capture-screenshots.mjs"
+    "screenshots": "node scripts/capture-screenshots.mjs",
+    "benchmark": "node scripts/benchmark.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.65.0"

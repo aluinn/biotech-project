@@ -31,6 +31,7 @@ There is no build step. Edit `index.html`, `style.css` or `app.js` and refresh t
 |---|---|
 | `npm start` | Serve the app at `http://localhost:8000` |
 | `npm run screenshots` | Regenerate the screenshots in `docs/assets/` (needs network and Chrome) |
+| `npm run benchmark` | Measure fetch and render times, see `docs/PERFORMANCE.md` |
 
 ## Project layout
 

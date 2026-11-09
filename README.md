@@ -94,6 +94,7 @@ Any static server works too, for example `python3 -m http.server`.
 |---|---|
 | `npm start` | Serves the app at `http://localhost:8000` (pass a different port with `node scripts/serve.mjs 3000`) |
 | `npm run screenshots` | Regenerates the README screenshots with your installed Google Chrome (needs network) |
+| `npm run benchmark` | Measures fetch and render times (see [docs/PERFORMANCE.md](docs/PERFORMANCE.md)) |
 
 ## Deploy
 
