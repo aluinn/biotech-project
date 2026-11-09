@@ -11,12 +11,7 @@
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Faluinn%2Fbiotech-project)
 
-<!--
-  HERO PLACEHOLDER: replace the screenshot below with a short screen recording
-  (e.g. searching "insulin", then hovering a residue). Save it as docs/assets/<new-name>.gif
-  or .mp4 and point the <img> at it. This is a real screenshot until then.
--->
-<img src="docs/assets/fold-search-matches-desktop.png" alt="Fold showing the AlphaFold-predicted structure of human haemoglobin beta, coloured by confidence" width="900" />
+https://github.com/user-attachments/assets/b71fb34d-34e9-43d4-a540-8ec37160ea19
 
 [**Live demo**](https://biotech-project-six.vercel.app) · [Architecture](docs/ARCHITECTURE.md) · [Roadmap](ROADMAP.md) · [Contributing](CONTRIBUTING.md)
 
