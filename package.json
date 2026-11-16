@@ -22,7 +22,7 @@
     "benchmark": "node scripts/benchmark.mjs"
   },
   "devDependencies": {
-    "@playwright/test": "^1.65.0"
+    "@playwright/test": "^1.65.1"
   },
   "keywords": [
     "alphafold",
